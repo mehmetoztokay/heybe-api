@@ -6,7 +6,7 @@ const config = require('./configs')
 const loaders = require('./loaders')
 
 // Require Routes
-const { WalletRoutes } = require('./routes')
+const { WalletRoutes, UserRoutes } = require('./routes')
 
 config()
 loaders()
@@ -21,4 +21,5 @@ app.listen(process.env.APP_PORT, () => {
 
   // Routes
   app.use('/wallet', WalletRoutes)
+  app.use('/user', UserRoutes)
 })

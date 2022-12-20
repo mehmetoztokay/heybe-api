@@ -5,6 +5,7 @@ const WalletSchema = new Mongoose.Schema(
   {
     name: String,
     description: String
+    // transactions: ,
   },
   {
     timestamps: true,
