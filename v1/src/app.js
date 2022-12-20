@@ -2,10 +2,14 @@ const express = require('express')
 const helmet = require('helmet')
 const config = require('./configs')
 
+// DB Connection
+const loaders = require('./loaders')
+
 // Require Routes
 const { WalletRoutes } = require('./routes')
 
 config()
+loaders()
 
 const app = express()
 
