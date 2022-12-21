@@ -1,5 +1,6 @@
 const express = require('express')
 const helmet = require('helmet')
+const { default: mongoose } = require('mongoose')
 const config = require('./configs')
 
 // DB Connection
@@ -9,6 +10,8 @@ const loaders = require('./loaders')
 const { WalletRoutes, UserRoutes } = require('./routes')
 
 config()
+// Mongoose settings
+mongoose.set('strictQuery', true)
 loaders()
 
 const app = express()

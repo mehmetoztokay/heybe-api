@@ -2,6 +2,8 @@
 const { list, insert } = require('../../services/User')
 const httpStatus = require('http-status')
 
+const { passwordToHash } = require('../../scripts/utils/index')
+
 const index = (req, res) => {
   list()
     .then((response) => res.status(httpStatus.OK).send(response))
@@ -9,7 +11,8 @@ const index = (req, res) => {
 }
 
 const create = (req, res) => {
-  insert(req.body)
+  const { name, surname, email, password } = req.body
+  insert({ name, surname, email, password: passwordToHash(password) })
     .then((response) => {
       res.status(httpStatus.CREATED).send(response)
     })
