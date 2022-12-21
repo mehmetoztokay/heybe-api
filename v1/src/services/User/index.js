@@ -7,6 +7,12 @@ const insert = (userData) => {
   return user.save()
 }
 
+const loginUser = ({ email, password }) => {
+  console.log(email, password)
+  const user = User.findOne({ email, password })
+  return user
+}
+
 const list = () => {
   const users = User.find({})
 
@@ -15,5 +21,6 @@ const list = () => {
 
 module.exports = {
   insert,
-  list
+  list,
+  loginUser
 }
