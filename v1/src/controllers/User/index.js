@@ -2,7 +2,7 @@
 const { list, insert, loginUser } = require('../../services/User')
 const httpStatus = require('http-status')
 
-const { passwordToHash } = require('../../scripts/utils/index')
+const { passwordToHash, generateAccessToken, generateRefreshToken } = require('../../scripts/utils/index')
 
 const index = (req, res) => {
   list()
@@ -16,6 +16,17 @@ const login = (req, res) => {
   loginUser({ email, password: passwordToHash(password) })
     .then((user) => {
       if (!user) return res.status(httpStatus.NOT_FOUND).send({ message: 'User not Found' })
+      user = {
+        ...user.toObject(),
+        // toObject() is a method of mongoose that returns a plain javascript object
+        tokens: {
+          acccess_token: generateAccessToken(user),
+          refresh_token: generateRefreshToken(user)
+        }
+      }
+
+      delete user.password
+
       res.status(httpStatus.OK).send(user)
     })
     .catch((err) => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err))

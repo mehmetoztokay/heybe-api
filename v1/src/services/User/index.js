@@ -8,7 +8,6 @@ const insert = (userData) => {
 }
 
 const loginUser = ({ email, password }) => {
-  console.log(email, password)
   const user = User.findOne({ email, password })
   return user
 }
